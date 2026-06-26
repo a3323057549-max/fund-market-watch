@@ -31,6 +31,14 @@ export const nowInTz = () => dayjs().tz(TZ);
 export const toTz = (input) => (input ? dayjs.tz(input, TZ) : nowInTz());
 export const formatDate = (input) => toTz(input).format('YYYY-MM-DD');
 
+export const MARKET_OPEN_MINUTE = 9 * 60;
+
+export function shouldShowTodayProfit(isTradingDay, input) {
+  if (!isTradingDay) return false;
+  const now = input ? toTz(input) : nowInTz();
+  return now.hour() * 60 + now.minute() >= MARKET_OPEN_MINUTE;
+}
+
 export { DCA_SCOPE_GLOBAL, SUMMARY_TAB_ID, SUMMARY_SOURCE_GLOBAL, DEFAULT_FUND_TAG_THEME };
 export const hasOwn = (obj, key) => Object.prototype.hasOwnProperty.call(obj, key);
 

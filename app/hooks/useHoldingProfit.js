@@ -2,7 +2,7 @@ import { useCallback, useRef } from 'react';
 import { isArray, isNumber, isString } from 'lodash';
 import { useStorageStore } from '../stores';
 import { useTradingDay } from './useTradingDay';
-import { formatDate, toTz, isNavUpdated } from '../lib/fundHelpers';
+import { formatDate, toTz, isNavUpdated, shouldShowTodayProfit } from '../lib/fundHelpers';
 
 /**
  * 基金持仓与当日/累计收益计算逻辑自定义 Hook
@@ -12,6 +12,7 @@ import { formatDate, toTz, isNavUpdated } from '../lib/fundHelpers';
 export function useHoldingProfit({ activeGroupId } = {}) {
   const { isTradingDay } = useTradingDay();
   const todayStr = formatDate();
+  const showTodayProfit = shouldShowTodayProfit(isTradingDay);
   const cacheRef = useRef(new Map());
 
   const getHoldingProfit = useCallback(
@@ -254,9 +255,9 @@ export function useHoldingProfit({ activeGroupId } = {}) {
           : null;
 
       const resolvedProfitToday =
-        isTradingDay && hasAccountDailyProfit && !useLatestNavDeltaForDailyProfit
+        showTodayProfit && hasAccountDailyProfit && !useLatestNavDeltaForDailyProfit
           ? accountDailyProfit
-          : isTradingDay
+          : showTodayProfit
             ? profitToday
             : null;
 
@@ -268,7 +269,7 @@ export function useHoldingProfit({ activeGroupId } = {}) {
         principalToday: resolvedProfitToday == null ? 0 : hasAccountAssetValue && !useLatestNavDeltaForDailyProfit ? accountAssetValue : principalToday
       };
     },
-    [isTradingDay, todayStr, activeGroupId]
+    [showTodayProfit, todayStr, activeGroupId]
   );
 
   return { getHoldingProfit };

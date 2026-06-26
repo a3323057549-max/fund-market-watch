@@ -29,7 +29,7 @@ dayjs.extend(timezone);
 dayjs.extend(isSameOrAfter);
 
 import { DEFAULT_TZ } from '@/app/constants';
-import { isNavUpdated } from '@/app/lib/fundHelpers';
+import { isNavUpdated, shouldShowTodayProfit } from '@/app/lib/fundHelpers';
 const getBrowserTimeZone = () => {
   if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -353,6 +353,19 @@ export default function Index({
     return isArray(list) ? list : [];
   }, [fundDailyEarnings, f?.code, hasHoldingShare]);
 
+  const showTodayProfit = shouldShowTodayProfit(isTradingDay);
+  const previousTradingProfit = useMemo(() => {
+    const accountDailyProfit = Number(holding?.accountDailyProfit);
+    if (Number.isFinite(accountDailyProfit)) return accountDailyProfit;
+    for (let i = dailyEarningsSeries.length - 1; i >= 0; i--) {
+      const item = dailyEarningsSeries[i];
+      if (item?.date && item.date < todayStr && Number.isFinite(Number(item.earnings))) {
+        return Number(item.earnings);
+      }
+    }
+    return null;
+  }, [dailyEarningsSeries, holding?.accountDailyProfit, todayStr]);
+
   const displayDailyEarningsSeries = useMemo(() => {
     if (!hasHoldingShare) return [];
     return dailyEarningsSeries;
@@ -388,6 +401,14 @@ export default function Index({
   const isValuationTrendExpanded = !collapsedValuationTrends?.has(fundCode);
   const isEarningsExpanded = !collapsedEarnings?.has(fundCode);
   const showValuationTrend = Boolean(userId);
+  const dailyProfitLabel = showTodayProfit ? '当日收益' : '昨日收益';
+  const dailyProfitValue = showTodayProfit ? profit?.profitToday : previousTradingProfit;
+  const dailyProfitBase =
+    showTodayProfit && profit?.principalToday > 0
+      ? profit.principalToday
+      : Number.isFinite(Number(holding?.accountAssetValue))
+        ? Number(holding.accountAssetValue)
+        : holding?.cost * holding?.share;
 
   return (
     <motion.div
@@ -743,26 +764,27 @@ export default function Index({
                 className="stat"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (profit.profitToday != null) {
+                  if (dailyProfitValue != null) {
                     onTodayPercentModeToggle?.(f.code);
                   }
                 }}
                 style={{
-                  cursor: profit.profitToday != null ? 'pointer' : 'default',
+                  cursor: dailyProfitValue != null ? 'pointer' : 'default',
                   flexDirection: 'column',
                   gap: 4
                 }}
               >
                 <span className="label" style={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  当日收益{todayPercentModes?.[f.code] ? '(%)' : ''}
-                  {profit.profitToday != null && <SwitchIcon />}
+                  {dailyProfitLabel}
+                  {todayPercentModes?.[f.code] ? '(%)' : ''}
+                  {dailyProfitValue != null && <SwitchIcon />}
                 </span>
-                {profit.profitToday != null ? (
+                {dailyProfitValue != null ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <span
                         className={`value ${
-                          masked ? '' : profit.profitToday > 0 ? 'up' : profit.profitToday < 0 ? 'down' : ''
+                          masked ? '' : dailyProfitValue > 0 ? 'up' : dailyProfitValue < 0 ? 'down' : ''
                         }`}
                         style={{ display: 'inline-block' }}
                       >
@@ -770,14 +792,12 @@ export default function Index({
                           '******'
                         ) : (
                           <>
-                            {profit.profitToday > 0 ? '+' : profit.profitToday < 0 ? '-' : ''}
+                            {dailyProfitValue > 0 ? '+' : dailyProfitValue < 0 ? '-' : ''}
                             {todayPercentModes?.[f.code]
                               ? `${Math.abs(
-                                  holding?.cost * holding?.share
-                                    ? (profit.profitToday / (holding.cost * holding.share)) * 100
-                                    : 0
+                                  dailyProfitBase ? (dailyProfitValue / dailyProfitBase) * 100 : 0
                                 ).toFixed(2)}%`
-                              : `${formatMoney(Math.abs(profit.profitToday))}`}
+                              : `${formatMoney(Math.abs(dailyProfitValue))}`}
                           </>
                         )}
                       </span>
