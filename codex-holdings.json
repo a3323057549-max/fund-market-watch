@@ -1,7 +1,7 @@
 {
-  "exportedAt": "2026-06-26T10:00:34.319Z",
-  "source": "codex-ttskill-confirmed-holding-only",
-  "note": "Public default holdings. Synced from TianTian Fund holding_list; excludes in-transit new buys until confirmed.",
+  "exportedAt": "2026-06-26T16:18:03.470Z",
+  "source": "codex-ttskill-official-account-holding",
+  "note": "Public default holdings. Synced from TianTian Fund holding_list; official account asset/daily/hold profit are primary so totals match TianTian Fund.",
   "refreshMs": 30000,
   "viewMode": "list",
   "funds": [
@@ -51,21 +51,6 @@
       "addBaseDate": "2026-06-25"
     },
     {
-      "code": "007531",
-      "name": "华宝券商ETF联接C",
-      "dwjz": "1.5594",
-      "gsz": 1.499,
-      "gszzl": -3.87,
-      "jzrq": "2026-06-25",
-      "gztime": "2026-06-26 15:00",
-      "noValuation": false,
-      "valuationSource": "fundgz",
-      "dataSource": 1,
-      "addedAt": 1782458406417,
-      "addBaseNav": 1.5594,
-      "addBaseDate": "2026-06-25"
-    },
-    {
       "code": "110020",
       "name": "易方达沪深300ETF联接A",
       "dwjz": "2.0244",
@@ -78,6 +63,21 @@
       "dataSource": 1,
       "addedAt": 1782458406906,
       "addBaseNav": 2.0244,
+      "addBaseDate": "2026-06-25"
+    },
+    {
+      "code": "007531",
+      "name": "华宝券商ETF联接C",
+      "dwjz": "1.5594",
+      "gsz": 1.499,
+      "gszzl": -3.87,
+      "jzrq": "2026-06-25",
+      "gztime": "2026-06-26 15:00",
+      "noValuation": false,
+      "valuationSource": "fundgz",
+      "dataSource": 1,
+      "addedAt": 1782458406417,
+      "addBaseNav": 1.5594,
       "addBaseDate": "2026-06-25"
     },
     {
@@ -111,6 +111,51 @@
       "addBaseDate": "2026-06-24"
     },
     {
+      "code": "012920",
+      "name": "易方达全球成长精选混合(QDII)人民币A",
+      "dwjz": "4.9981",
+      "gsz": 5.0013,
+      "gszzl": 0.06,
+      "jzrq": "2026-06-24",
+      "gztime": "2026-06-26 04:00",
+      "noValuation": false,
+      "valuationSource": "fundgz",
+      "dataSource": 1,
+      "addedAt": 1782458409823,
+      "addBaseNav": 4.9981,
+      "addBaseDate": "2026-06-24"
+    },
+    {
+      "code": "180031",
+      "name": "银华中小盘混合",
+      "dwjz": "1.0000",
+      "gsz": 1,
+      "gszzl": 0,
+      "jzrq": "2026-06-26",
+      "gztime": "2026-06-26 15:00",
+      "noValuation": true,
+      "valuationSource": "ttskill-account-placeholder",
+      "dataSource": "ttskill-account",
+      "addedAt": 1782490683476,
+      "addBaseNav": 1,
+      "addBaseDate": "2026-06-26"
+    },
+    {
+      "code": "024663",
+      "name": "富国创业板人工智能ETF发起式联接C",
+      "dwjz": "1.0000",
+      "gsz": 1,
+      "gszzl": 0,
+      "jzrq": "2026-06-26",
+      "gztime": "2026-06-26 15:00",
+      "noValuation": true,
+      "valuationSource": "ttskill-account-placeholder",
+      "dataSource": "ttskill-account",
+      "addedAt": 1782490683476,
+      "addBaseNav": 1,
+      "addBaseDate": "2026-06-26"
+    },
+    {
       "code": "017470",
       "name": "嘉实上证科创板芯片ETF发起联接C",
       "dwjz": "3.6169",
@@ -123,21 +168,6 @@
       "dataSource": 1,
       "addedAt": 1782458407952,
       "addBaseNav": 3.6169,
-      "addBaseDate": "2026-06-25"
-    },
-    {
-      "code": "011120",
-      "name": "富国创新科技混合C",
-      "dwjz": "6.2310",
-      "gsz": 5.8624,
-      "gszzl": -5.92,
-      "jzrq": "2026-06-25",
-      "gztime": "2026-06-26 15:00",
-      "noValuation": false,
-      "valuationSource": "fundgz",
-      "dataSource": 1,
-      "addedAt": 1782458408354,
-      "addBaseNav": 6.231,
       "addBaseDate": "2026-06-25"
     },
     {
@@ -156,19 +186,19 @@
       "addBaseDate": "2026-06-25"
     },
     {
-      "code": "012920",
-      "name": "易方达全球成长精选混合(QDII)人民币A",
-      "dwjz": "4.9981",
-      "gsz": 5.0013,
-      "gszzl": 0.06,
-      "jzrq": "2026-06-24",
-      "gztime": "2026-06-26 04:00",
+      "code": "011120",
+      "name": "富国创新科技混合C",
+      "dwjz": "6.2310",
+      "gsz": 5.8624,
+      "gszzl": -5.92,
+      "jzrq": "2026-06-25",
+      "gztime": "2026-06-26 15:00",
       "noValuation": false,
       "valuationSource": "fundgz",
       "dataSource": 1,
-      "addedAt": 1782458409823,
-      "addBaseNav": 4.9981,
-      "addBaseDate": "2026-06-24"
+      "addedAt": 1782458408354,
+      "addBaseNav": 6.231,
+      "addBaseDate": "2026-06-25"
     },
     {
       "code": "008888",
@@ -190,14 +220,16 @@
     "022435",
     "020603",
     "008702",
-    "007531",
     "110020",
+    "007531",
     "016452",
     "019172",
-    "017470",
-    "011120",
-    "013128",
     "012920",
+    "180031",
+    "024663",
+    "017470",
+    "013128",
+    "011120",
     "008888"
   ],
   "groups": [
@@ -208,14 +240,16 @@
         "022435",
         "020603",
         "008702",
-        "007531",
         "110020",
+        "007531",
         "016452",
         "019172",
-        "017470",
-        "011120",
-        "013128",
         "012920",
+        "180031",
+        "024663",
+        "017470",
+        "013128",
+        "011120",
         "008888"
       ]
     }
@@ -223,132 +257,351 @@
   "holdings": {
     "110020": {
       "share": 110.758743,
-      "cost": 1.986119
+      "cost": 1.986119,
+      "accountAssetValue": 218.61,
+      "accountDailyProfit": -5.63,
+      "accountHoldProfit": -1.39,
+      "accountHoldProfitRate": "-0.70%",
+      "accountConstantProfit": -1.39,
+      "accountConstantProfitRate": "-0.70%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+    },
+    "180031": {
+      "share": 0,
+      "cost": 0,
+      "accountAssetValue": 100,
+      "accountDailyProfit": 0,
+      "accountHoldProfit": 0,
+      "accountHoldProfitRate": "--",
+      "accountConstantProfit": 0,
+      "accountConstantProfitRate": "--",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "022435": {
       "share": 343.873459,
-      "cost": 1.27954
+      "cost": 1.27954,
+      "accountAssetValue": 449.92,
+      "accountDailyProfit": -13.14,
+      "accountHoldProfit": 9.92,
+      "accountHoldProfitRate": "2.25%",
+      "accountConstantProfit": 9.92,
+      "accountConstantProfitRate": "2.25%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "020603": {
       "share": 319.808274,
-      "cost": 1.055101
+      "cost": 1.055101,
+      "accountAssetValue": 315.43,
+      "accountDailyProfit": -1.5,
+      "accountHoldProfit": -22,
+      "accountHoldProfitRate": "-6.52%",
+      "accountConstantProfit": -22.02,
+      "accountConstantProfitRate": "-6.53%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "008702": {
       "share": 155.022227,
-      "cost": 1.935206
+      "cost": 1.935206,
+      "accountAssetValue": 295.7,
+      "accountDailyProfit": 2.77,
+      "accountHoldProfit": -4.3,
+      "accountHoldProfitRate": "-1.43%",
+      "accountConstantProfit": -4.3,
+      "accountConstantProfitRate": "-1.43%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "007531": {
       "share": 144.882647,
-      "cost": 1.380428
+      "cost": 1.380428,
+      "accountAssetValue": 218.13,
+      "accountDailyProfit": -7.79,
+      "accountHoldProfit": 18.13,
+      "accountHoldProfitRate": "9.06%",
+      "accountConstantProfit": 18.13,
+      "accountConstantProfitRate": "9.06%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "016452": {
       "share": 85.851991,
-      "cost": 2.329241
+      "cost": 2.329241,
+      "accountAssetValue": 197.4,
+      "accountDailyProfit": 1.44,
+      "accountHoldProfit": -2.6,
+      "accountHoldProfitRate": "-1.30%",
+      "accountConstantProfit": -2.6,
+      "accountConstantProfitRate": "-1.30%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "019172": {
       "share": 62.086558,
-      "cost": 1.77172
-    },
-    "017470": {
-      "share": 27.650751,
-      "cost": 3.6169
-    },
-    "011120": {
-      "share": 16.050393,
-      "cost": 6.231
-    },
-    "013128": {
-      "share": 142.082492,
-      "cost": 0.703816
+      "cost": 1.77172,
+      "accountAssetValue": 108.91,
+      "accountDailyProfit": 0.6,
+      "accountHoldProfit": -1.09,
+      "accountHoldProfitRate": "-1.21%",
+      "accountConstantProfit": -1.09,
+      "accountConstantProfitRate": "-1.21%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "012920": {
       "share": 19.581441,
       "cost": 5.106366,
-      "accountAssetValue": 97.87,
-      "accountDailyProfit": 0.46,
-      "accountHoldProfit": -2.12,
-      "accountHoldProfitRate": "-3.53%",
+      "accountAssetValue": 102.11,
+      "accountDailyProfit": 4.23,
+      "accountHoldProfit": 2.11,
+      "accountHoldProfitRate": "2.64%",
       "accountSource": "ttskill ACCOUNT_HOLDING",
-      "accountSyncedAt": "2026-06-26T09:51:31.225Z",
-      "dailyProfitMode": "latest_nav_delta",
-      "dailyProfitShare": 15.62,
-      "dailyProfitSource": "xiaobei-latest-nav-delta",
-      "dailyProfitSyncedAt": "2026-06-26T10:00:34.319Z"
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z",
+      "accountConstantProfit": 2.11,
+      "accountConstantProfitRate": "2.64%"
+    },
+    "024663": {
+      "share": 0,
+      "cost": 0,
+      "accountAssetValue": 100,
+      "accountDailyProfit": 0,
+      "accountHoldProfit": 0,
+      "accountHoldProfitRate": "--",
+      "accountConstantProfit": 0,
+      "accountConstantProfitRate": "--",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+    },
+    "017470": {
+      "share": 27.650751,
+      "cost": 3.6169,
+      "accountAssetValue": 98.83,
+      "accountDailyProfit": -1.17,
+      "accountHoldProfit": -1.17,
+      "accountHoldProfitRate": "-1.17%",
+      "accountConstantProfit": -1.17,
+      "accountConstantProfitRate": "-1.17%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+    },
+    "013128": {
+      "share": 142.082492,
+      "cost": 0.703816,
+      "accountAssetValue": 95.25,
+      "accountDailyProfit": -3.27,
+      "accountHoldProfit": -4.75,
+      "accountHoldProfitRate": "-4.75%",
+      "accountConstantProfit": -4.75,
+      "accountConstantProfitRate": "-4.75%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+    },
+    "011120": {
+      "share": 16.050393,
+      "cost": 6.231,
+      "accountAssetValue": 94.09,
+      "accountDailyProfit": -5.91,
+      "accountHoldProfit": -5.91,
+      "accountHoldProfitRate": "-5.91%",
+      "accountConstantProfit": -5.91,
+      "accountConstantProfitRate": "-5.91%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     },
     "008888": {
       "share": 21.119209,
-      "cost": 2.367513
+      "cost": 2.367513,
+      "accountAssetValue": 55.34,
+      "accountDailyProfit": -0.59,
+      "accountHoldProfit": 5.34,
+      "accountHoldProfitRate": "10.68%",
+      "accountConstantProfit": 5.34,
+      "accountConstantProfitRate": "10.68%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T16:18:03.470Z"
     }
   },
   "groupHoldings": {
     "codex_current_holding": {
       "110020": {
         "share": 110.758743,
-        "cost": 1.986119
+        "cost": 1.986119,
+        "accountAssetValue": 218.61,
+        "accountDailyProfit": -5.63,
+        "accountHoldProfit": -1.39,
+        "accountHoldProfitRate": "-0.70%",
+        "accountConstantProfit": -1.39,
+        "accountConstantProfitRate": "-0.70%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+      },
+      "180031": {
+        "share": 0,
+        "cost": 0,
+        "accountAssetValue": 100,
+        "accountDailyProfit": 0,
+        "accountHoldProfit": 0,
+        "accountHoldProfitRate": "--",
+        "accountConstantProfit": 0,
+        "accountConstantProfitRate": "--",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "022435": {
         "share": 343.873459,
-        "cost": 1.27954
+        "cost": 1.27954,
+        "accountAssetValue": 449.92,
+        "accountDailyProfit": -13.14,
+        "accountHoldProfit": 9.92,
+        "accountHoldProfitRate": "2.25%",
+        "accountConstantProfit": 9.92,
+        "accountConstantProfitRate": "2.25%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "020603": {
         "share": 319.808274,
-        "cost": 1.055101
+        "cost": 1.055101,
+        "accountAssetValue": 315.43,
+        "accountDailyProfit": -1.5,
+        "accountHoldProfit": -22,
+        "accountHoldProfitRate": "-6.52%",
+        "accountConstantProfit": -22.02,
+        "accountConstantProfitRate": "-6.53%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "008702": {
         "share": 155.022227,
-        "cost": 1.935206
+        "cost": 1.935206,
+        "accountAssetValue": 295.7,
+        "accountDailyProfit": 2.77,
+        "accountHoldProfit": -4.3,
+        "accountHoldProfitRate": "-1.43%",
+        "accountConstantProfit": -4.3,
+        "accountConstantProfitRate": "-1.43%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "007531": {
         "share": 144.882647,
-        "cost": 1.380428
+        "cost": 1.380428,
+        "accountAssetValue": 218.13,
+        "accountDailyProfit": -7.79,
+        "accountHoldProfit": 18.13,
+        "accountHoldProfitRate": "9.06%",
+        "accountConstantProfit": 18.13,
+        "accountConstantProfitRate": "9.06%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "016452": {
         "share": 85.851991,
-        "cost": 2.329241
+        "cost": 2.329241,
+        "accountAssetValue": 197.4,
+        "accountDailyProfit": 1.44,
+        "accountHoldProfit": -2.6,
+        "accountHoldProfitRate": "-1.30%",
+        "accountConstantProfit": -2.6,
+        "accountConstantProfitRate": "-1.30%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "019172": {
         "share": 62.086558,
-        "cost": 1.77172
-      },
-      "017470": {
-        "share": 27.650751,
-        "cost": 3.6169
-      },
-      "011120": {
-        "share": 16.050393,
-        "cost": 6.231
-      },
-      "013128": {
-        "share": 142.082492,
-        "cost": 0.703816
+        "cost": 1.77172,
+        "accountAssetValue": 108.91,
+        "accountDailyProfit": 0.6,
+        "accountHoldProfit": -1.09,
+        "accountHoldProfitRate": "-1.21%",
+        "accountConstantProfit": -1.09,
+        "accountConstantProfitRate": "-1.21%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "012920": {
         "share": 19.581441,
         "cost": 5.106366,
-        "accountAssetValue": 97.87,
-        "accountDailyProfit": 0.46,
-        "accountHoldProfit": -2.12,
-        "accountHoldProfitRate": "-3.53%",
+        "accountAssetValue": 102.11,
+        "accountDailyProfit": 4.23,
+        "accountHoldProfit": 2.11,
+        "accountHoldProfitRate": "2.64%",
         "accountSource": "ttskill ACCOUNT_HOLDING",
-        "accountSyncedAt": "2026-06-26T09:51:31.225Z",
-        "dailyProfitMode": "latest_nav_delta",
-        "dailyProfitShare": 15.62,
-        "dailyProfitSource": "xiaobei-latest-nav-delta",
-        "dailyProfitSyncedAt": "2026-06-26T10:00:34.319Z"
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z",
+        "accountConstantProfit": 2.11,
+        "accountConstantProfitRate": "2.64%"
+      },
+      "024663": {
+        "share": 0,
+        "cost": 0,
+        "accountAssetValue": 100,
+        "accountDailyProfit": 0,
+        "accountHoldProfit": 0,
+        "accountHoldProfitRate": "--",
+        "accountConstantProfit": 0,
+        "accountConstantProfitRate": "--",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+      },
+      "017470": {
+        "share": 27.650751,
+        "cost": 3.6169,
+        "accountAssetValue": 98.83,
+        "accountDailyProfit": -1.17,
+        "accountHoldProfit": -1.17,
+        "accountHoldProfitRate": "-1.17%",
+        "accountConstantProfit": -1.17,
+        "accountConstantProfitRate": "-1.17%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+      },
+      "013128": {
+        "share": 142.082492,
+        "cost": 0.703816,
+        "accountAssetValue": 95.25,
+        "accountDailyProfit": -3.27,
+        "accountHoldProfit": -4.75,
+        "accountHoldProfitRate": "-4.75%",
+        "accountConstantProfit": -4.75,
+        "accountConstantProfitRate": "-4.75%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
+      },
+      "011120": {
+        "share": 16.050393,
+        "cost": 6.231,
+        "accountAssetValue": 94.09,
+        "accountDailyProfit": -5.91,
+        "accountHoldProfit": -5.91,
+        "accountHoldProfitRate": "-5.91%",
+        "accountConstantProfit": -5.91,
+        "accountConstantProfitRate": "-5.91%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       },
       "008888": {
         "share": 21.119209,
-        "cost": 2.367513
+        "cost": 2.367513,
+        "accountAssetValue": 55.34,
+        "accountDailyProfit": -0.59,
+        "accountHoldProfit": 5.34,
+        "accountHoldProfitRate": "10.68%",
+        "accountConstantProfit": 5.34,
+        "accountConstantProfitRate": "10.68%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T16:18:03.470Z"
       }
     }
   },
   "lastTtSkillSync": {
-    "holdingFile": "E:/wendang/funds/sync_holding_list_20260626_170919.json",
-    "tradeFile": "E:/wendang/funds/sync_trade_in_20260626_170919.json",
-    "excludedInTransitNewBuyCodes": [
-      "024663",
-      "180031"
-    ],
-    "hqbAssetValue": "22545.38"
+    "holdingFile": "E:/wendang/funds/review_holding_list_20260627_001137.json",
+    "tradeFile": "E:/wendang/funds/review_trade_all_20260627_001344.json",
+    "excludedInTransitNewBuyCodes": [],
+    "hqbAssetValue": "22545.38",
+    "fundAssetValue": "2449.72",
+    "totalAssetValue": "24995.10"
   }
 }
