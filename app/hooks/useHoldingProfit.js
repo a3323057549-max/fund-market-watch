@@ -164,63 +164,73 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       if (!holding.dividendMethod || holding.dividendMethod === 'reinvest') {
         effectiveShare += extraShares;
       }
-
-      // QDII 等基金净值日期会延迟，isNavUpdated 可能把近几日净值视为已更新。
-      // 当存在今天估值时，优先用今天估值计算当日收益，避免用延迟确认净值覆盖估算口径。
-      const useValuation = hasTodayValuation && !hasExactTodayData ? true : isTradingDay && !hasTodayData;
+      // QDII funds often publish the previous overseas trading day's NAV during the next China trading day.
+      // In that state, the next-period valuation can be stale/noisy; account daily profit should follow latest NAV change.
+      const latestNavChange = fund.zzl !== undefined ? Number(fund.zzl) : Number.NaN;
+      const isQdiiLike = /QDII|纳斯达克|全球|恒生科技/i.test(String(fund.name || ''));
+      const preferLatestNavChange =
+        isQdiiLike && Number.isFinite(latestNavChange) && fund.dwjz != null && fund.dwjz !== '';
+      const useValuation = preferLatestNavChange
+        ? false
+        : hasTodayValuation && !hasExactTodayData
+          ? true
+          : isTradingDay && !hasTodayData;
 
       let currentNav;
       let profitToday;
+      let principalToday = isNumber(holding.cost) ? holding.cost * shareForTodayProfit : 0;
 
       if (!useValuation) {
-        // 使用确权净值 (dwjz)
         currentNav = Number(fund.dwjz);
         if (!currentNav) return null;
 
         if (canCalcTodayProfit) {
-          const amount = isNumber(holding.cost)
+          const amountByCost = isNumber(holding.cost)
             ? holding.cost * shareForTodayProfit
             : shareForTodayProfit * currentNav;
-          // 优先使用昨日净值直接计算（更精确，避免涨跌幅四舍五入误差）
-          const lastNav = fund.lastNav != null && fund.lastNav !== '' ? Number(fund.lastNav) : null;
-          if (lastNav && Number.isFinite(lastNav) && lastNav > 0) {
-            profitToday = (currentNav - lastNav) * shareForTodayProfit;
-          } else {
-            const gz = isString(fund.gztime) ? toTz(fund.gztime) : null;
-            const jz = isString(fund.jzrq) ? toTz(fund.jzrq) : null;
-            const preferGszzl =
-              !!gz && !!jz && gz.isValid() && jz.isValid() && gz.startOf('day').isAfter(jz.startOf('day'));
 
-            let rate;
-            if (preferGszzl) {
-              rate = Number(fund.gszzl);
+          if (preferLatestNavChange) {
+            const amountByNav = shareForTodayProfit * currentNav;
+            principalToday = amountByNav;
+            profitToday = amountByNav * (latestNavChange / 100);
+          } else {
+            const lastNav = fund.lastNav != null && fund.lastNav !== '' ? Number(fund.lastNav) : null;
+            if (lastNav && Number.isFinite(lastNav) && lastNav > 0) {
+              profitToday = (currentNav - lastNav) * shareForTodayProfit;
             } else {
-              const zzl = fund.zzl !== undefined ? Number(fund.zzl) : Number.NaN;
-              rate = Number.isFinite(zzl) ? zzl : Number(fund.gszzl);
+              const gz = isString(fund.gztime) ? toTz(fund.gztime) : null;
+              const jz = isString(fund.jzrq) ? toTz(fund.jzrq) : null;
+              const preferGszzl =
+                !!gz && !!jz && gz.isValid() && jz.isValid() && gz.startOf('day').isAfter(jz.startOf('day'));
+
+              let rate;
+              if (preferGszzl) {
+                rate = Number(fund.gszzl);
+              } else {
+                const zzl = fund.zzl !== undefined ? Number(fund.zzl) : Number.NaN;
+                rate = Number.isFinite(zzl) ? zzl : Number(fund.gszzl);
+              }
+              if (!Number.isFinite(rate)) rate = 0;
+              profitToday = amountByCost - amountByCost / (1 + rate / 100);
             }
-            if (!Number.isFinite(rate)) rate = 0;
-            profitToday = amount - amount / (1 + rate / 100);
           }
         } else {
           profitToday = null;
         }
       } else {
-        // 否则使用估值
         currentNav = isNumber(fund.gsz) ? fund.gsz : Number(fund.dwjz);
 
         if (!currentNav) return null;
 
         if (canCalcTodayProfit) {
           const amount = shareForTodayProfit * currentNav;
-          // 估算涨幅
           const gzChange = Number(fund.gszzl) || 0;
           profitToday = amount * (gzChange / 100);
         } else {
           profitToday = null;
         }
       }
-
-      // 持仓金额强制使用确权净值
+      // Holding amount always uses confirmed NAV when available.
       const exactNav = Number(fund.dwjz) || currentNav;
       const amount = effectiveShare * exactNav;
 
@@ -234,7 +244,7 @@ export function useHoldingProfit({ activeGroupId } = {}) {
         nav: exactNav,
         profitToday,
         profitTotal,
-        principalToday: isNumber(holding.cost) ? holding.cost * shareForTodayProfit : 0
+        principalToday
       };
     },
     [isTradingDay, todayStr, activeGroupId]
