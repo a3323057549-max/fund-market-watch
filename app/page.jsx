@@ -1182,11 +1182,6 @@ export default function HomePage() {
             : String(f.gsz)
           : '—';
 
-      const yesterdayChangePercent =
-        f.zzl != null && f.zzl !== '' ? `${f.zzl > 0 ? '+' : ''}${Number(f.zzl).toFixed(2)}%` : '—';
-      const yesterdayChangeValue = f.zzl != null && f.zzl !== '' ? Number(f.zzl) : null;
-      const yesterdayDate = f.jzrq || '-';
-
       const estimateChangePercent = f.noValuation
         ? '—'
         : isNumber(f.gszzl)
@@ -1195,6 +1190,19 @@ export default function HomePage() {
       const estimateChangeValue = f.noValuation ? null : isNumber(f.gszzl) ? Number(f.gszzl) : null;
       const estimateTime = f.noValuation ? f.jzrq || '-' : f.gztime || f.time || '-';
       const hasTodayEstimate = !f.noValuation && isString(f.gztime) && f.gztime.startsWith(todayStr);
+      const rawLatestChangeValue =
+        f.zzl != null && f.zzl !== ''
+          ? Number(f.zzl)
+          : estimateChangeValue != null
+            ? estimateChangeValue
+            : null;
+      const yesterdayChangePercent =
+        rawLatestChangeValue != null && Number.isFinite(rawLatestChangeValue)
+          ? `${rawLatestChangeValue > 0 ? '+' : ''}${Number(rawLatestChangeValue).toFixed(2)}%`
+          : '—';
+      const yesterdayChangeValue =
+        rawLatestChangeValue != null && Number.isFinite(rawLatestChangeValue) ? rawLatestChangeValue : null;
+      const yesterdayDate = f.zzl != null && f.zzl !== '' ? f.jzrq || '-' : estimateTime;
 
       const holding = holdingsForTabWithLinked[f.code];
       const isHoldingLinked =
@@ -1252,10 +1260,13 @@ export default function HomePage() {
         }
       }
 
+      const accountDailyProfit = Number(holding?.accountDailyProfit);
       const yesterdayProfitVal =
         yesterdayMatchedDaily && Number.isFinite(Number(yesterdayMatchedDaily.earnings))
           ? Number(yesterdayMatchedDaily.earnings)
-          : null;
+          : Number.isFinite(accountDailyProfit)
+            ? accountDailyProfit
+            : null;
       const yesterdayProfit =
         yesterdayProfitVal == null
           ? ''
@@ -1271,13 +1282,18 @@ export default function HomePage() {
         yesterdayProfitVal != null && dailyBaseCostAmount != null && dailyBaseCostAmount > 0
           ? (yesterdayProfitVal / dailyBaseCostAmount) * 100
           : null;
+      const accountAssetValue = Number(holding?.accountAssetValue);
+      const accountDailyRate =
+        Number.isFinite(accountDailyProfit) && Number.isFinite(accountAssetValue) && accountAssetValue > 0
+          ? (accountDailyProfit / accountAssetValue) * 100
+          : null;
       const dailyRate =
         yesterdayMatchedDaily &&
         yesterdayMatchedDaily.rate != null &&
         yesterdayMatchedDaily.rate !== '' &&
         Number.isFinite(Number(yesterdayMatchedDaily.rate))
           ? Number(yesterdayMatchedDaily.rate)
-          : derivedRateFromSnapshot;
+          : derivedRateFromSnapshot ?? accountDailyRate;
       const yesterdayProfitPercentLine =
         dailyRate != null
           ? `${dailyRate > 0 ? '+' : dailyRate < 0 ? '-' : ''}${Math.abs(dailyRate).toFixed(2)}%`
