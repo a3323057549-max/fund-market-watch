@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-26T09:10:36.366Z",
+  "exportedAt": "2026-06-26T09:51:31.225Z",
   "source": "codex-ttskill-confirmed-holding-only",
   "note": "Public default holdings. Synced from TianTian Fund holding_list; excludes in-transit new buys until confirmed.",
   "refreshMs": 30000,
@@ -263,7 +263,13 @@
     },
     "012920": {
       "share": 19.581441,
-      "cost": 5.106366
+      "cost": 5.106366,
+      "accountAssetValue": 97.87,
+      "accountDailyProfit": 0.46,
+      "accountHoldProfit": -2.12,
+      "accountHoldProfitRate": "-3.53%",
+      "accountSource": "ttskill ACCOUNT_HOLDING",
+      "accountSyncedAt": "2026-06-26T09:51:31.225Z"
     },
     "008888": {
       "share": 21.119209,
@@ -314,7 +320,13 @@
       },
       "012920": {
         "share": 19.581441,
-        "cost": 5.106366
+        "cost": 5.106366,
+        "accountAssetValue": 97.87,
+        "accountDailyProfit": 0.46,
+        "accountHoldProfit": -2.12,
+        "accountHoldProfitRate": "-3.53%",
+        "accountSource": "ttskill ACCOUNT_HOLDING",
+        "accountSyncedAt": "2026-06-26T09:51:31.225Z"
       },
       "008888": {
         "share": 21.119209,
@@ -325,7 +337,10 @@
   "lastTtSkillSync": {
     "holdingFile": "E:/wendang/funds/sync_holding_list_20260626_170919.json",
     "tradeFile": "E:/wendang/funds/sync_trade_in_20260626_170919.json",
-    "excludedInTransitNewBuyCodes": ["024663", "180031"],
+    "excludedInTransitNewBuyCodes": [
+      "024663",
+      "180031"
+    ],
     "hqbAssetValue": "22545.38"
   }
 }

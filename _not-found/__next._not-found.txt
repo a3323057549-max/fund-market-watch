@@ -1,4 +1,4 @@
 1:"$Sreact.fragment"
 2:I[339756,["/fund-market-watch/_next/static/chunks/6a78b0eede25728f.js"],"default"]
 3:I[837457,["/fund-market-watch/_next/static/chunks/6a78b0eede25728f.js"],"default"]
-0:{"buildId":"L8SHFmR4EoapbF-9ekc5z","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}
+0:{"buildId":"9OxkxMBPaRa3DQZHl5M6v","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}

@@ -180,6 +180,12 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       let currentNav;
       let profitToday;
       let principalToday = isNumber(holding.cost) ? holding.cost * shareForTodayProfit : 0;
+      const accountAssetValue = Number(holding.accountAssetValue);
+      const accountDailyProfit = Number(holding.accountDailyProfit);
+      const accountHoldProfit = Number(holding.accountHoldProfit);
+      const hasAccountAssetValue = Number.isFinite(accountAssetValue);
+      const hasAccountDailyProfit = Number.isFinite(accountDailyProfit);
+      const hasAccountHoldProfit = Number.isFinite(accountHoldProfit);
 
       if (!useValuation) {
         currentNav = Number(fund.dwjz);
@@ -233,19 +239,21 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       }
       // Holding amount always uses confirmed NAV when available.
       const exactNav = Number(fund.dwjz) || currentNav;
-      const amount = effectiveShare * exactNav;
+      const amount = hasAccountAssetValue ? accountAssetValue : effectiveShare * exactNav;
 
       // 总收益 = (确权净值 * 当前有效份额) - 成本总额 + 现金分红
-      const profitTotal = isNumber(holding.cost)
-        ? exactNav * effectiveShare - holding.cost * holding.share + dividendCash
-        : null;
+      const profitTotal = hasAccountHoldProfit
+        ? accountHoldProfit
+        : isNumber(holding.cost)
+          ? exactNav * effectiveShare - holding.cost * holding.share + dividendCash
+          : null;
 
       return {
         amount,
         nav: exactNav,
-        profitToday,
+        profitToday: hasAccountDailyProfit ? accountDailyProfit : profitToday,
         profitTotal,
-        principalToday
+        principalToday: hasAccountAssetValue ? accountAssetValue : principalToday
       };
     },
     [isTradingDay, todayStr, activeGroupId]
