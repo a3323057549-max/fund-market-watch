@@ -167,7 +167,8 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       // QDII funds often publish the previous overseas trading day's NAV during the next China trading day.
       // In that state, the next-period valuation can be stale/noisy; account daily profit should follow latest NAV change.
       const latestNavChange = fund.zzl !== undefined ? Number(fund.zzl) : Number.NaN;
-      const isQdiiLike = /QDII|纳斯达克|全球|恒生科技/i.test(String(fund.name || ''));
+      const qdiiCodes = new Set(['012920', '013128', '016452', '019172']);
+      const isQdiiLike = qdiiCodes.has(String(fund.code || '')) || /QDII|纳斯达克|全球|恒生科技/i.test(String(fund.name || ''));
       const preferLatestNavChange =
         isQdiiLike && Number.isFinite(latestNavChange) && fund.dwjz != null && fund.dwjz !== '';
       const useValuation = preferLatestNavChange
