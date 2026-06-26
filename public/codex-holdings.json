@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-06-26T09:51:31.225Z",
+  "exportedAt": "2026-06-26T10:00:34.319Z",
   "source": "codex-ttskill-confirmed-holding-only",
   "note": "Public default holdings. Synced from TianTian Fund holding_list; excludes in-transit new buys until confirmed.",
   "refreshMs": 30000,
@@ -269,7 +269,11 @@
       "accountHoldProfit": -2.12,
       "accountHoldProfitRate": "-3.53%",
       "accountSource": "ttskill ACCOUNT_HOLDING",
-      "accountSyncedAt": "2026-06-26T09:51:31.225Z"
+      "accountSyncedAt": "2026-06-26T09:51:31.225Z",
+      "dailyProfitMode": "latest_nav_delta",
+      "dailyProfitShare": 15.62,
+      "dailyProfitSource": "xiaobei-latest-nav-delta",
+      "dailyProfitSyncedAt": "2026-06-26T10:00:34.319Z"
     },
     "008888": {
       "share": 21.119209,
@@ -326,7 +330,11 @@
         "accountHoldProfit": -2.12,
         "accountHoldProfitRate": "-3.53%",
         "accountSource": "ttskill ACCOUNT_HOLDING",
-        "accountSyncedAt": "2026-06-26T09:51:31.225Z"
+        "accountSyncedAt": "2026-06-26T09:51:31.225Z",
+        "dailyProfitMode": "latest_nav_delta",
+        "dailyProfitShare": 15.62,
+        "dailyProfitSource": "xiaobei-latest-nav-delta",
+        "dailyProfitSyncedAt": "2026-06-26T10:00:34.319Z"
       },
       "008888": {
         "share": 21.119209,

@@ -183,9 +183,13 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       const accountAssetValue = Number(holding.accountAssetValue);
       const accountDailyProfit = Number(holding.accountDailyProfit);
       const accountHoldProfit = Number(holding.accountHoldProfit);
+      const dailyProfitShare = Number(holding.dailyProfitShare);
       const hasAccountAssetValue = Number.isFinite(accountAssetValue);
       const hasAccountDailyProfit = Number.isFinite(accountDailyProfit);
       const hasAccountHoldProfit = Number.isFinite(accountHoldProfit);
+      const hasDailyProfitShare = Number.isFinite(dailyProfitShare) && dailyProfitShare > 0;
+      const useLatestNavDeltaForDailyProfit =
+        holding.dailyProfitMode === 'latest_nav_delta' && preferLatestNavChange;
 
       if (!useValuation) {
         currentNav = Number(fund.dwjz);
@@ -197,9 +201,10 @@ export function useHoldingProfit({ activeGroupId } = {}) {
             : shareForTodayProfit * currentNav;
 
           if (preferLatestNavChange) {
-            const amountByNav = shareForTodayProfit * currentNav;
-            principalToday = amountByNav;
-            profitToday = amountByNav * (latestNavChange / 100);
+            const basisShare = useLatestNavDeltaForDailyProfit && hasDailyProfitShare ? dailyProfitShare : shareForTodayProfit;
+            const previousNav = currentNav / (1 + latestNavChange / 100);
+            principalToday = previousNav * basisShare;
+            profitToday = (currentNav - previousNav) * basisShare;
           } else {
             const lastNav = fund.lastNav != null && fund.lastNav !== '' ? Number(fund.lastNav) : null;
             if (lastNav && Number.isFinite(lastNav) && lastNav > 0) {
@@ -251,9 +256,9 @@ export function useHoldingProfit({ activeGroupId } = {}) {
       return {
         amount,
         nav: exactNav,
-        profitToday: hasAccountDailyProfit ? accountDailyProfit : profitToday,
+        profitToday: hasAccountDailyProfit && !useLatestNavDeltaForDailyProfit ? accountDailyProfit : profitToday,
         profitTotal,
-        principalToday: hasAccountAssetValue ? accountAssetValue : principalToday
+        principalToday: hasAccountAssetValue && !useLatestNavDeltaForDailyProfit ? accountAssetValue : principalToday
       };
     },
     [isTradingDay, todayStr, activeGroupId]
