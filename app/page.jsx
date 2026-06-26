@@ -1300,18 +1300,9 @@ export default function HomePage() {
       const holdingProfitValue = total;
 
       const holdingProfitPercentValue = total != null && principal > 0 ? (total / principal) * 100 : null;
-      const hasEstimatePercent = hasTodayEstimate && estimateChangeValue != null;
-      const hasHoldingPercent = holdingProfitPercentValue != null;
-      const fallbackEstimateProfitPercentValue =
-        hasEstimatePercent || hasHoldingPercent
-          ? (hasEstimatePercent ? estimateChangeValue : 0) + (hasHoldingPercent ? holdingProfitPercentValue : 0)
-          : null;
-      const estimateProfitPercentValue = hasTodayData ? holdingProfitPercentValue : fallbackEstimateProfitPercentValue;
-      const estimateProfitValue = hasTodayData
-        ? total
-        : estimateProfitPercentValue != null && principal > 0
-          ? principal * (estimateProfitPercentValue / 100)
-          : null;
+      const estimateProfitPercentValue =
+        profitToday != null && profit?.principalToday > 0 ? (profitToday / profit.principalToday) * 100 : null;
+      const estimateProfitValue = profitToday;
       const estimateProfit =
         estimateProfitValue == null
           ? ''

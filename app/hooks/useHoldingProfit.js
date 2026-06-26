@@ -178,7 +178,9 @@ export function useHoldingProfit({ activeGroupId } = {}) {
         if (!currentNav) return null;
 
         if (canCalcTodayProfit) {
-          const amount = shareForTodayProfit * currentNav;
+          const amount = isNumber(holding.cost)
+            ? holding.cost * shareForTodayProfit
+            : shareForTodayProfit * currentNav;
           // 优先使用昨日净值直接计算（更精确，避免涨跌幅四舍五入误差）
           const lastNav = fund.lastNav != null && fund.lastNav !== '' ? Number(fund.lastNav) : null;
           if (lastNav && Number.isFinite(lastNav) && lastNav > 0) {
@@ -212,7 +214,7 @@ export function useHoldingProfit({ activeGroupId } = {}) {
           const amount = shareForTodayProfit * currentNav;
           // 估算涨幅
           const gzChange = Number(fund.gszzl) || 0;
-          profitToday = amount - amount / (1 + gzChange / 100);
+          profitToday = amount * (gzChange / 100);
         } else {
           profitToday = null;
         }

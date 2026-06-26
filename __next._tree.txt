@@ -1,3 +1,3 @@
-:HL["/fund-market-watch/_next/static/chunks/63f43efe12205dc3.css","style"]
+:HL["/fund-market-watch/_next/static/chunks/5e45aaac7191c3aa.css","style"]
 :HL["/fund-market-watch/_next/static/chunks/464cdb0d88f16370.css","style"]
-0:{"buildId":"hOaRjFfVNtzkRbeheTqwd","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+0:{"buildId":"FkLPfSwum5AxO7DAFsY4I","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
