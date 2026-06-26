@@ -433,7 +433,7 @@ export default function HomePage() {
     summaryMergedHoldings,
     summaryHoldingSourceGroupByCode,
     summaryCardItems
-  } = useSummaryCalculations({ currentTab, setCurrentTab, getHoldingProfit });
+  } = useSummaryCalculations({ currentTab, setCurrentTab, getHoldingProfit, isTradingDay });
 
   const getHoldingProfitForTab = useCallback(
     (fund, holding) => {
@@ -5065,6 +5065,7 @@ export default function HomePage() {
                         setMaskAmounts={setMaskAmounts}
                         shouldShowMarketIndex={shouldShowMarketIndex}
                         summaryCardItems={summaryCardItems}
+                        isTradingDay={isTradingDay}
                         isMobile={isMobile}
                         startTransition={startTransition}
                         setCurrentTab={setCurrentTab}
@@ -5084,6 +5085,7 @@ export default function HomePage() {
                         onToggleMasked={() => setMaskAmounts((v) => !v)}
                         shouldShowMarketIndex={shouldShowMarketIndex}
                         navbarHeight={navbarHeight}
+                        isTradingDay={isTradingDay}
                       />
                     )}
                     {currentTab !== SUMMARY_TAB_ID && (

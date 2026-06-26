@@ -19,6 +19,7 @@ export default function SummaryTabContent({
   setMaskAmounts,
   shouldShowMarketIndex,
   summaryCardItems,
+  isTradingDay,
   isMobile,
   startTransition,
   setCurrentTab
@@ -39,6 +40,7 @@ export default function SummaryTabContent({
         onToggleMasked={() => setMaskAmounts((v) => !v)}
         shouldShowMarketIndex={shouldShowMarketIndex}
         navbarHeight={navbarHeight}
+        isTradingDay={isTradingDay}
       />
       {summaryCardItems.length > 0 && (
         <div
@@ -67,6 +69,7 @@ export default function SummaryTabContent({
                 holdingReturnPercent={row.holdingReturnPercent}
                 accountReturn={row.accountReturn}
                 accountReturnPercent={row.accountReturnPercent}
+                accountReturnLabel={row.accountReturnLabel}
                 hasAnyTodayData={row.hasAnyTodayData}
                 upCount={row.upCount}
                 downCount={row.downCount}

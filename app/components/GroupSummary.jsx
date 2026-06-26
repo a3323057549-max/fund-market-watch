@@ -7,6 +7,7 @@ import { PinIcon, PinOffIcon, EyeIcon, EyeOffIcon, SwitchIcon } from './Icons';
 import FitText from './FitText';
 import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import { formatMoney } from '@/lib/utils';
+import { shouldShowTodayProfit } from '@/app/lib/fundHelpers';
 
 import { SUMMARY_TAB_ID } from '@/app/constants';
 
@@ -96,7 +97,8 @@ export default function GroupSummary({
   masked,
   onToggleMasked,
   shouldShowMarketIndex,
-  navbarHeight
+  navbarHeight,
+  isTradingDay
 }) {
   const isMobile = useIsMobile();
   const [showPercent, setShowPercent] = useState(true);
@@ -105,6 +107,8 @@ export default function GroupSummary({
   const [isAssetMasked, setIsAssetMasked] = useState(false);
   const assetSize = 26;
   const metricSize = 20;
+  const showTodayProfit = shouldShowTodayProfit(isTradingDay);
+  const accountReturnLabel = showTodayProfit ? '当日收益' : '昨日收益';
 
   useEffect(() => {
     if (isBoolean(masked)) {
@@ -126,6 +130,7 @@ export default function GroupSummary({
     let totalProfitToday = 0;
     let totalHoldingReturn = 0;
     let totalCost = 0;
+    let totalPrincipalToday = 0;
     let hasHolding = false;
     let hasAnyTodayData = false;
 
@@ -136,9 +141,18 @@ export default function GroupSummary({
       if (profit) {
         hasHolding = true;
         totalAsset += Math.round(profit.amount * 100) / 100;
-        if (profit.profitToday != null) {
+        const accountDailyProfit = Number(holding?.accountDailyProfit);
+        const displayAccountReturn = showTodayProfit
+          ? profit.profitToday != null
+            ? { value: profit.profitToday, principal: profit.principalToday || 0 }
+            : null
+          : Number.isFinite(accountDailyProfit)
+            ? { value: accountDailyProfit, principal: profit.amount || 0 }
+            : null;
+        if (displayAccountReturn) {
           // 先累加原始当日收益，最后统一做一次四舍五入，避免逐笔四舍五入造成的总计误差
-          totalProfitToday += profit.profitToday;
+          totalProfitToday += displayAccountReturn.value;
+          totalPrincipalToday += displayAccountReturn.principal || 0;
           hasAnyTodayData = true;
         }
         if (profit.profitTotal !== null) {
@@ -154,7 +168,7 @@ export default function GroupSummary({
     const roundedTotalProfitToday = Math.round(totalProfitToday * 100) / 100;
 
     const returnRate = totalCost > 0 ? (totalHoldingReturn / totalCost) * 100 : 0;
-    const todayReturnRate = totalCost > 0 ? (roundedTotalProfitToday / totalCost) * 100 : 0;
+    const todayReturnRate = totalPrincipalToday > 0 ? (roundedTotalProfitToday / totalPrincipalToday) * 100 : 0;
 
     return {
       totalAsset,
@@ -163,9 +177,10 @@ export default function GroupSummary({
       hasHolding,
       returnRate,
       todayReturnRate,
-      hasAnyTodayData
+      hasAnyTodayData,
+      accountReturnLabel
     };
-  }, [funds, holdings, getProfit]);
+  }, [funds, holdings, getProfit, showTodayProfit, accountReturnLabel]);
 
   const summary =
     summaryTotalsOverride != null && isObject(summaryTotalsOverride)
@@ -176,7 +191,8 @@ export default function GroupSummary({
           hasHolding: summaryTotalsOverride.hasHolding,
           returnRate: summaryTotalsOverride.returnRate,
           todayReturnRate: summaryTotalsOverride.todayReturnRate,
-          hasAnyTodayData: summaryTotalsOverride.hasAnyTodayData
+          hasAnyTodayData: summaryTotalsOverride.hasAnyTodayData,
+          accountReturnLabel: summaryTotalsOverride.accountReturnLabel || accountReturnLabel
         }
       : derivedSummary;
 
@@ -299,7 +315,8 @@ export default function GroupSummary({
                   gap: 2
                 }}
               >
-                当日收益{showTodayPercent ? '(%)' : ''} <SwitchIcon style={{ opacity: 0.4 }} />
+                {summary.accountReturnLabel || accountReturnLabel}
+                {showTodayPercent ? '(%)' : ''} <SwitchIcon style={{ opacity: 0.4 }} />
               </div>
               <div
                 className={

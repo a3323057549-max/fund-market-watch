@@ -5,6 +5,7 @@ import { isArray, isNumber, isPlainObject } from 'lodash';
 import { useStorageStore } from '../stores';
 import { SUMMARY_TAB_ID, SUMMARY_SOURCE_GLOBAL } from '@/app/constants';
 import { aggregatePortfolioDailyEarnings, mergeAllScopedDailyEarnings } from '../lib/dailyEarnings';
+import { shouldShowTodayProfit } from '../lib/fundHelpers';
 
 /**
  * 虚拟 Summary Tab 收益/汇总资产计算 Hook
@@ -14,8 +15,26 @@ import { aggregatePortfolioDailyEarnings, mergeAllScopedDailyEarnings } from '..
  * @param {Function} deps.setCurrentTab - 活跃 Tab 设置方法
  * @param {Function} deps.getHoldingProfit - 获取基金持仓收益的函数方法
  */
-export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingProfit }) {
+export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingProfit, isTradingDay }) {
   const { funds, holdings, groupHoldings, groups, fundDailyEarnings } = useStorageStore();
+  const showTodayProfit = shouldShowTodayProfit(isTradingDay);
+  const accountReturnLabel = showTodayProfit ? '当日收益' : '昨日收益';
+
+  const getDisplayAccountReturn = (profit, holding) => {
+    if (showTodayProfit) {
+      if (profit?.profitToday == null) return null;
+      return {
+        value: profit.profitToday,
+        principal: profit.principalToday || 0
+      };
+    }
+    const accountDailyProfit = Number(holding?.accountDailyProfit);
+    if (!Number.isFinite(accountDailyProfit)) return null;
+    return {
+      value: accountDailyProfit,
+      principal: Number.isFinite(profit?.amount) ? profit.amount : 0
+    };
+  };
 
   // 1. 过滤出当前含有持仓的自定义分组
   const groupsWithHoldings = useMemo(() => {
@@ -50,9 +69,10 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
       if (!p || !Number.isFinite(p.amount) || p.amount <= 0) return;
       hasHolding = true;
       totalAsset += Math.round(p.amount * 100) / 100;
-      if (p.profitToday != null) {
-        totalProfitToday += p.profitToday;
-        totalPrincipalToday += p.principalToday || 0;
+      const displayAccountReturn = getDisplayAccountReturn(p, holding);
+      if (displayAccountReturn) {
+        totalProfitToday += displayAccountReturn.value;
+        totalPrincipalToday += displayAccountReturn.principal || 0;
         hasAnyTodayData = true;
       }
       if (p.profitTotal != null) {
@@ -85,9 +105,10 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
       hasHolding,
       returnRate,
       todayReturnRate,
-      hasAnyTodayData
+      hasAnyTodayData,
+      accountReturnLabel
     };
-  }, [funds, holdings, groupHoldings, groups, getHoldingProfit]);
+  }, [funds, holdings, groupHoldings, groups, getHoldingProfit, showTodayProfit, accountReturnLabel]);
 
   // 3. 全局持仓在 Summary 中是否有持仓占比
   const hasGlobalPortfolioForSummary = useMemo(() => {
@@ -181,9 +202,10 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
         const profit = getHoldingProfit(fund, holding, null);
         if (!profit) continue;
         totalAsset += Math.round(profit.amount * 100) / 100;
-        if (profit.profitToday != null) {
-          totalProfitToday += profit.profitToday;
-          totalPrincipalToday += profit.principalToday || 0;
+        const displayAccountReturn = getDisplayAccountReturn(profit, holding);
+        if (displayAccountReturn) {
+          totalProfitToday += displayAccountReturn.value;
+          totalPrincipalToday += displayAccountReturn.principal || 0;
           hasAnyTodayData = true;
         }
         if (profit.profitTotal !== null) {
@@ -218,6 +240,7 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
         holdingReturnPercent: returnRate,
         accountReturn: roundedToday,
         accountReturnPercent: todayReturnRate,
+        accountReturnLabel,
         hasAnyTodayData,
         upCount,
         downCount,
@@ -243,9 +266,10 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
           const profit = getHoldingProfit(fund, holding, g.id);
           if (profit) {
             totalAsset += Math.round(profit.amount * 100) / 100;
-            if (profit.profitToday != null) {
-              totalProfitToday += profit.profitToday;
-              totalPrincipalToday += profit.principalToday || 0;
+            const displayAccountReturn = getDisplayAccountReturn(profit, holding);
+            if (displayAccountReturn) {
+              totalProfitToday += displayAccountReturn.value;
+              totalPrincipalToday += displayAccountReturn.principal || 0;
               hasAnyTodayData = true;
             }
             if (profit.profitTotal !== null) {
@@ -282,6 +306,7 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
           holdingReturnPercent: returnRate,
           accountReturn: roundedToday,
           accountReturnPercent: todayReturnRate,
+          accountReturnLabel,
           hasAnyTodayData,
           upCount,
           downCount,
@@ -298,7 +323,9 @@ export function useSummaryCalculations({ currentTab, setCurrentTab, getHoldingPr
     holdings,
     getHoldingProfit,
     fundDailyEarnings,
-    hasGlobalPortfolioForSummary
+    hasGlobalPortfolioForSummary,
+    showTodayProfit,
+    accountReturnLabel
   ]);
 
   return {
