@@ -253,12 +253,19 @@ export function useHoldingProfit({ activeGroupId } = {}) {
           ? exactNav * effectiveShare - holding.cost * holding.share + dividendCash
           : null;
 
+      const resolvedProfitToday =
+        isTradingDay && hasAccountDailyProfit && !useLatestNavDeltaForDailyProfit
+          ? accountDailyProfit
+          : isTradingDay
+            ? profitToday
+            : null;
+
       return {
         amount,
         nav: exactNav,
-        profitToday: hasAccountDailyProfit && !useLatestNavDeltaForDailyProfit ? accountDailyProfit : profitToday,
+        profitToday: resolvedProfitToday,
         profitTotal,
-        principalToday: hasAccountAssetValue && !useLatestNavDeltaForDailyProfit ? accountAssetValue : principalToday
+        principalToday: resolvedProfitToday == null ? 0 : hasAccountAssetValue && !useLatestNavDeltaForDailyProfit ? accountAssetValue : principalToday
       };
     },
     [isTradingDay, todayStr, activeGroupId]
