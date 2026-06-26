@@ -34,8 +34,10 @@ export const formatDate = (input) => toTz(input).format('YYYY-MM-DD');
 export const MARKET_OPEN_MINUTE = 9 * 60;
 
 export function shouldShowTodayProfit(isTradingDay, input) {
-  if (!isTradingDay) return false;
   const now = input ? toTz(input) : nowInTz();
+  const day = now.day();
+  if (day === 0 || day === 6) return false;
+  if (!isTradingDay) return false;
   return now.hour() * 60 + now.minute() >= MARKET_OPEN_MINUTE;
 }
 
