@@ -1,18 +1,25 @@
-// 最小 Service Worker，满足 Android Chrome「添加到主屏幕」的安装条件
-const CACHE_NAME = 'jigubao-v1';
-
 self.addEventListener('install', (event) => {
   self.skipWaiting();
+  event.waitUntil(caches.keys().then((keys) => Promise.all(keys.map((key) => caches.delete(key)))));
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
-});
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((key) => caches.delete(key)));
+      await self.registration.unregister();
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    fetch(event.request).catch(() => {
-      return new Response('', { status: 503, statusText: 'Service Unavailable' });
-    })
+      const clientsList = await self.clients.matchAll({
+        type: 'window',
+        includeUncontrolled: true
+      });
+
+      for (const client of clientsList) {
+        client.navigate(client.url);
+      }
+    })()
   );
 });
+
+self.addEventListener('fetch', () => {});
